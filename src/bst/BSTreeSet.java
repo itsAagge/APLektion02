@@ -161,36 +161,23 @@ public class BSTreeSet<E> { // BSTreeSet corresponds to the class BST in the boo
 
     //-----------------------------------------------------
 
-    public ArrayList<E> toArrayInorder() {
-        ArrayList<E> list = new ArrayList<>();
-        toArrayInorder(root, list);
-        return list;
-    }
-
-    private void toArrayInorder(TreeNode node, ArrayList<E> list) {
-        if (node == null) return;
-        toArrayInorder(node.left, list);
-        list.add(node.element);
-        toArrayInorder(node.right, list);
-    }
-
-    //-----------------------------------------------------
-
     public int greaterThanCount(E element) {
         return greaterThanSet(element).size();
     }
 
     public Set<E> greaterThanSet(E element) {
-        ArrayList<E> list = toArrayInorder();
-        Set<E> result = new LinkedHashSet<>();
+        Set<E> set = new LinkedHashSet<>();
+        greaterThanSet(root, set, element);
+        return set;
+    }
 
-        for (E e : list) {
-            if (comparator.compare(e, element) > 0) {
-                result.add(e);
-            }
+    private void greaterThanSet(TreeNode node, Set<E> set, E element) {
+        if (node == null) return;
+        greaterThanSet(node.left, set, element);
+        if (comparator.compare(node.element, element) > 0) {
+            set.add(node.element);
         }
-
-        return result;
+        greaterThanSet(node.right, set, element);
     }
 
     //-----------------------------------------------------
