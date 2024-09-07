@@ -13,9 +13,6 @@ public class Main {
         ArrayList<Integer> list = new ArrayList<>(List.of(45,22,77,11,30,90,15,25,88));
         set1.addAll(list);
 
-        System.out.println("Inorder: " + set1.toArrayInorder());
-        System.out.println();
-
         System.out.println("Greater than 45: " + set1.greaterThanSet(45));
         System.out.println("Size: " + set1.greaterThanCount(45));
         System.out.println();

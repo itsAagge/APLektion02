@@ -1,6 +1,7 @@
 package opgave03.ex3student;
 
 import bst.BSTreeSet;
+
 import java.util.*;
 
 public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
@@ -31,12 +32,17 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
     @Override
     public V put(K k, V v) {
         NodePair nodePair = locateNodeAndParent(k);
-        if (nodePair.current != null) return nodePair.current.element.value();
+        if (nodePair.current != null) {
+            return nodePair.current.element.value();
+        }
         else {
-            if (k.compareTo(nodePair.parent.element.key) > 0) {
-                nodePair.parent.right = new TreeNode(k, v);
-            } else {
-                nodePair.parent.left = new TreeNode(k, v);
+            if (nodePair.parent == null) root = new TreeNode(k, v);
+            else {
+                if (k.compareTo(nodePair.parent.element.key) > 0) {
+                    nodePair.parent.right = new TreeNode(k, v);
+                } else {
+                    nodePair.parent.left = new TreeNode(k, v);
+                }
             }
             size++;
             return null;
@@ -58,12 +64,16 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
             TreeNode nodeLeftOfRemoved = nodePair.current.left;
             TreeNode nodeRightOfRemoved = nodePair.current.right;
 
-            if (nodeToRemove == nodePair.parent.left) {
+            if (nodeToRemove == root) {
+                root = nodeLeftOfRemoved;
+                if (nodeRightOfRemoved != null) max(nodeLeftOfRemoved).right = nodeRightOfRemoved;
+            } else if (nodeToRemove == nodePair.parent.left) {
                 nodePair.parent.left = nodeLeftOfRemoved;
+                if (nodeRightOfRemoved != null) max(nodeLeftOfRemoved).right = nodeRightOfRemoved;
             } else {
-                nodePair.parent.right = nodeLeftOfRemoved;
+                nodePair.parent.right = nodeRightOfRemoved;
+                if (nodeLeftOfRemoved != null) min(nodeLeftOfRemoved).left = nodeLeftOfRemoved;
             }
-            max(nodeLeftOfRemoved).right = nodeRightOfRemoved;
             size--;
             return nodeToRemove.element.value();
         }
@@ -71,6 +81,11 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
 
     private TreeNode max(TreeNode node) {
         while (node.right != null) node = node.right;
+        return node;
+    }
+
+    private TreeNode min(TreeNode node) {
+        while (node.left != null) node = node.left;
         return node;
     }
 
@@ -193,10 +208,10 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
         TreeNode parent = null;
         TreeNode current = root;
         while (!nodeFound && current != null) {
-            if (keyComparator.compare(key, current.element.key) < 0) {
+            if (key.compareTo(current.element.key) < 0) {
                 parent = current;
                 current = current.left;
-            } else if (keyComparator.compare(key, current.element.key) > 0) {
+            } else if (key.compareTo(current.element.key) > 0) {
                 parent = current;
                 current = current.right;
             } else {
