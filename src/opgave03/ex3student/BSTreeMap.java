@@ -1,7 +1,5 @@
 package opgave03.ex3student;
 
-import bst.BSTreeSet;
-
 import java.util.*;
 
 public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
@@ -33,7 +31,10 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
     public V put(K k, V v) {
         NodePair nodePair = locateNodeAndParent(k);
         if (nodePair.current != null) {
-            return nodePair.current.element.value();
+            V oldValue = nodePair.current.element.value();
+            nodePair.current.element.key = k;
+            nodePair.current.element.value = v;
+            return oldValue;
         }
         else {
             if (nodePair.parent == null) root = new TreeNode(k, v);
@@ -65,14 +66,28 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
             TreeNode nodeRightOfRemoved = nodePair.current.right;
 
             if (nodeToRemove == root) {
-                root = nodeLeftOfRemoved;
-                if (nodeRightOfRemoved != null) max(nodeLeftOfRemoved).right = nodeRightOfRemoved;
+                if (nodeLeftOfRemoved != null) {
+                    root = nodeLeftOfRemoved;
+                    if (nodeRightOfRemoved != null) max(nodeLeftOfRemoved).right = nodeRightOfRemoved;
+                } else if (nodeRightOfRemoved != null) {
+                    root = nodeRightOfRemoved;
+                } else {
+                    root = null;
+                }
             } else if (nodeToRemove == nodePair.parent.left) {
-                nodePair.parent.left = nodeLeftOfRemoved;
-                if (nodeRightOfRemoved != null) max(nodeLeftOfRemoved).right = nodeRightOfRemoved;
+                if (nodeLeftOfRemoved != null) {
+                    nodePair.parent.left = nodeLeftOfRemoved;
+                    if (nodeRightOfRemoved != null) max(nodeLeftOfRemoved).right = nodeRightOfRemoved;
+                } else {
+                    nodePair.parent.left = nodeRightOfRemoved;
+                }
             } else {
-                nodePair.parent.right = nodeRightOfRemoved;
-                if (nodeLeftOfRemoved != null) min(nodeLeftOfRemoved).left = nodeLeftOfRemoved;
+                if (nodeLeftOfRemoved != null) {
+                    nodePair.parent.right = nodeLeftOfRemoved;
+                    if (nodeRightOfRemoved != null) max(nodeLeftOfRemoved).right = nodeRightOfRemoved;
+                } else {
+                    nodePair.parent.right = nodeRightOfRemoved;
+                }
             }
             size--;
             return nodeToRemove.element.value();
@@ -94,8 +109,8 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
      */
     @Override
     public Set<K> keys() {
-        Set<TreeNode> nodes = new HashSet<>();
-        toSet(root, nodes);
+        List<TreeNode> nodes = new ArrayList<>();
+        toList(root, nodes);
         Set<K> keys = new HashSet<>();
         for (TreeNode node : nodes) {
             keys.add(node.element.key());
@@ -103,11 +118,11 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
         return keys;
     }
 
-    public void toSet(TreeNode node, Set<TreeNode> set) {
+    public void toList(TreeNode node, List<TreeNode> list) {
         if (node == null) return;
-        toSet(node.left, set);
-        set.add(node);
-        toSet(node.right, set);
+        toList(node.left, list);
+        list.add(node);
+        toList(node.right, list);
     }
 
     /**
@@ -115,8 +130,8 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
      */
     @Override
     public List<V> values() {
-        Set<TreeNode> nodes = new HashSet<>();
-        toSet(root, nodes);
+        List<TreeNode> nodes = new ArrayList<>();
+        toList(root, nodes);
         List<V> values = new ArrayList<>();
         for (TreeNode node : nodes) {
             values.add(node.element.value());
@@ -129,8 +144,8 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
      */
     @Override
     public Set<MapI.Entry<K, V>> entries() {
-        Set<TreeNode> nodes = new HashSet<>();
-        toSet(root, nodes);
+        List<TreeNode> nodes = new ArrayList<>();
+        toList(root, nodes);
         Set<MapI.Entry<K, V>> entries = new HashSet<>();
         for (TreeNode node : nodes) {
             entries.add(node.element);
