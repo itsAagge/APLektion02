@@ -19,7 +19,7 @@ public class IntBSTreeSet extends BSTreeSet<Integer> {
         return sum(root);
     }
 
-    public int sum(TreeNode node) {
+    private int sum(TreeNode node) {
         if (node == null) return 0;
         return sum(node.left) + node.element + sum(node.right);
     }
