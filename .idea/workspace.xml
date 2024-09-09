@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd74ec63-a1f5-4593-a58c-1a61745fccfe" name="Changes" comment="opgave03 completed">
+    <list default="true" id="cd74ec63-a1f5-4593-a58c-1a61745fccfe" name="Changes" comment="opgave03 completed for real this time">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/opgave03/ex3student/BSTreeMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/opgave03/ex3student/BSTreeMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/opgave03/ex3student/MapTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/opgave03/ex3student/MapTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +49,7 @@
       <recent name="C:\Users\hdmax\IdeaProjects\APLektion02\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ex3App">
+  <component name="RunManager" selected="JUnit.MapTest.testAll">
     <configuration name="Ex3App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="opgave03.ex3student.Ex3App" />
       <module name="APLektion02" />
@@ -98,8 +96,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Ex3App" />
         <item itemvalue="JUnit.MapTest.testAll" />
+        <item itemvalue="Application.Ex3App" />
         <item itemvalue="JUnit.MapTest" />
       </list>
     </recent_temporary>
@@ -119,6 +117,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Updated greaterThanSet" />
     <MESSAGE value="opgave03 completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="opgave03 completed" />
+    <MESSAGE value="opgave03 completed for real this time" />
+    <option name="LAST_COMMIT_MESSAGE" value="opgave03 completed for real this time" />
   </component>
 </project>

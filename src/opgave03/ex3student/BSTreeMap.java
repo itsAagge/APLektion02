@@ -111,7 +111,7 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
     public Set<K> keys() {
         List<TreeNode> nodes = new ArrayList<>();
         toList(root, nodes);
-        Set<K> keys = new HashSet<>();
+        Set<K> keys = new LinkedHashSet<>();
         for (TreeNode node : nodes) {
             keys.add(node.element.key());
         }
@@ -146,7 +146,7 @@ public class BSTreeMap<K extends Comparable<K>, V> implements MapI<K, V> {
     public Set<MapI.Entry<K, V>> entries() {
         List<TreeNode> nodes = new ArrayList<>();
         toList(root, nodes);
-        Set<MapI.Entry<K, V>> entries = new HashSet<>();
+        Set<MapI.Entry<K, V>> entries = new LinkedHashSet<>();
         for (TreeNode node : nodes) {
             entries.add(node.element);
         }
