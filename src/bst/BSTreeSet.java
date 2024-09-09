@@ -185,14 +185,12 @@ public class BSTreeSet<E> { // BSTreeSet corresponds to the class BST in the boo
         return sameHeightCount(root, height);
     }
 
-    public int sameHeightCount(TreeNode node, int height) {
+    private int sameHeightCount(TreeNode node, int height) {
         if (node == null) return 0;
         int nodeHeight = height(node);
         if (nodeHeight == height) return 1;
-        else if (nodeHeight > height) {
+        else {
             return sameHeightCount(node.left, height) + sameHeightCount(node.right, height);
-        } else {
-            return 0;
         }
     }
 
